@@ -1,0 +1,18 @@
+Smart E-commerce FAQ AI Agent — Description
+This is a structured, tool-routing AI agent built in a no-code automation platform (appears to be Make/Integromat from the screenshot). It is designed to handle inbound customer questions for an e-commerce store with speed, accuracy, and zero hallucination — by grounding every answer in structured data from three Google Sheets.
+How it works, end to end:
+
+A customer sends a message via Telegram (or another channel). The message enters the agent as a natural language query.
+The agent's LLM core (Groq Chat Model) classifies the intent into one of three buckets — policy question, product question, or support/contact question.
+Based on the classification, it calls the matching tool function (find_policy, find_product, or find_ops), which reads the relevant Google Sheet and returns matching rows.
+The agent ranks the rows by semantic similarity to the user's query, picks the best match, and constructs a response following a strict format: one direct answer sentence, followed by 2–4 detail bullets (time windows, care notes, contact info), and a fallback to support if nothing matches.
+The response is sent back via Telegram and optionally also logged or forwarded via Gmail.
+
+Supporting infrastructure includes a Memory node for conversation context, and optional Supabase RAG and Google Cloud Realtime Database nodes (currently deactivated in the screenshot) for more advanced retrieval or logging.
+Key design decisions:
+
+All answers are grounded in sheet data — the agent never generates or assumes facts.
+Three clearly separated knowledge domains prevent cross-contamination between policy, product, and ops answers.
+The fallback path always surfaces real contact details, ensuring no customer is left without a next step.
+
+Both diagrams are interactive — click any node to ask a follow-up question about that component.Use caution before running this prompt. Malicious conversation content could trick Claude into attempting harmful actions or sharing your data.What triggers a product lookup in this agent?Sonnet 4.6 Low
