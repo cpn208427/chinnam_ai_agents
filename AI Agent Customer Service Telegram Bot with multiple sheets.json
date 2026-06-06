@@ -1,0 +1,472 @@
+{
+  "name": "AI Agent Customer Service Telegram Bot with multiple sheets",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "#https://telegram.me/BotFather\n#Bot Link:\nhttps://web.telegram.org/a/#8542586928\n\n#Customer Service Bot",
+        "height": 176,
+        "width": 288,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -1792,
+        -720
+      ],
+      "id": "501da161-ad55-442b-b38a-f0667e94d0bf",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -1152,
+        -416
+      ],
+      "id": "d9c6cdda-3c9f-4efc-ab5c-7604c34423d2",
+      "name": "Customer input message ",
+      "webhookId": "cfa62778-4adc-49ad-87fb-dba3e77d7814",
+      "credentials": {
+        "telegramApi": {
+          "id": "3ztFvUk4cYNimaY7",
+          "name": "Telegram account 26"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Customer input message ').item.json.message.from.id }}",
+        "text": "={{ $json.output }}",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        -480,
+        -416
+      ],
+      "id": "52d17f45-6018-47f9-b160-71e0d4a5d1cb",
+      "name": "Response ",
+      "webhookId": "7acb7640-ed2b-45ee-aebf-f428aba43eff",
+      "credentials": {
+        "telegramApi": {
+          "id": "3ztFvUk4cYNimaY7",
+          "name": "Telegram account 26"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $workflow.id }}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        -1216,
+        -32
+      ],
+      "id": "82d94dc9-6cfd-484c-a250-6af332b585e6",
+      "name": "Memory"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1rI1hQ6qlzsVs3VLTqecqrbTW5pgBZwXYEBvnJf1yJ8U",
+          "mode": "list",
+          "cachedResultName": "FAQs - V2",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1rI1hQ6qlzsVs3VLTqecqrbTW5pgBZwXYEBvnJf1yJ8U/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Policies_Terms",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1rI1hQ6qlzsVs3VLTqecqrbTW5pgBZwXYEBvnJf1yJ8U/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.7,
+      "position": [
+        -1056,
+        -48
+      ],
+      "id": "0222af3b-5041-4d30-99b7-c06489ef391f",
+      "name": "Policy Terms",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "sYxGxXhuZcFBpJDf",
+          "name": "CP AI Google Sheets"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1rI1hQ6qlzsVs3VLTqecqrbTW5pgBZwXYEBvnJf1yJ8U",
+          "mode": "list",
+          "cachedResultName": "FAQs - V2",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1rI1hQ6qlzsVs3VLTqecqrbTW5pgBZwXYEBvnJf1yJ8U/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 107927771,
+          "mode": "list",
+          "cachedResultName": "Product_Knowledge",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1rI1hQ6qlzsVs3VLTqecqrbTW5pgBZwXYEBvnJf1yJ8U/edit#gid=107927771"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.7,
+      "position": [
+        -880,
+        -48
+      ],
+      "id": "48ee174d-8e03-4590-8d8a-8371fe6d933f",
+      "name": "Product Knowledge",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "sYxGxXhuZcFBpJDf",
+          "name": "CP AI Google Sheets"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1rI1hQ6qlzsVs3VLTqecqrbTW5pgBZwXYEBvnJf1yJ8U",
+          "mode": "list",
+          "cachedResultName": "FAQs - V2",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1rI1hQ6qlzsVs3VLTqecqrbTW5pgBZwXYEBvnJf1yJ8U/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1255456453,
+          "mode": "list",
+          "cachedResultName": "Operations_Contact",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1rI1hQ6qlzsVs3VLTqecqrbTW5pgBZwXYEBvnJf1yJ8U/edit#gid=1255456453"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.7,
+      "position": [
+        -688,
+        -48
+      ],
+      "id": "73294f09-c936-46b9-bdf4-2a741bacdaf5",
+      "name": "OPration Contact",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "sYxGxXhuZcFBpJDf",
+          "name": "CP AI Google Sheets"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.supabaseTool",
+      "typeVersion": 1,
+      "position": [
+        -496,
+        -64
+      ],
+      "id": "dc56bcf4-86a7-4734-9e73-eb1a6cbd4494",
+      "name": "RAG Database - Supabase",
+      "credentials": {
+        "supabaseApi": {
+          "id": "OOnkhzzzQgVuQ3er",
+          "name": "Supabase account 37"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.message.text }}",
+        "options": {
+          "systemMessage": "You are a smart, factual e-commerce FAQ assistant that answers customer questions using three Google Sheets as your knowledge sources. \nEach sheet acts as a separate tool.\n\nTOOLS AND THEIR STRUCTURE\n--------------------------------------------------\n1) Policies_Terms\n   Columns: policy_area, question_canonical, policy_answer, window_or_limits\n   → Use this sheet for company policies like shipping, returns, exchanges, cancellations, COD, warranty, etc.\n\n2) Product_Knowledge\n   Columns: product_name, category, materials, care, warranty_note\n   → Use this sheet for product-related questions like fabric, material, wash care, category, and warranty.\n\n3) Operations_Contact\n   Columns: topic, contact_email, whatsapp_number, phone_hours\n   → Use this sheet for contact details, escalation, or support information.\n\n--------------------------------------------------\nTOOL ACCESS FUNCTIONS\n- find_policy(query: string)\n  → returns matching rows from Policies_Terms\n- find_product(query: string)\n  → returns matching rows from Product_Knowledge\n- find_ops(query: string)\n  → returns one or more rows from Operations_Contact\n\n--------------------------------------------------\nREASONING AND BEHAVIOR\n1. Classify the incoming user message:\n   - If about delivery, return, refund, cancellation, payment, or warranty → call find_policy.\n   - If about a product’s material, fabric, category, or care → call find_product.\n   - If about customer support, escalation, or contact → call find_ops.\n\n2. When calling a tool:\n   - Use short keyword queries (3–6 words) representing the user’s intent.\n   - Retrieve all possible matches, then pick the most relevant row by comparing the user’s question to question_canonical or product_name fields.\n\n3. Response construction:\n   - Start with a clear, direct answer (1–2 sentences) based on the best matched row.\n   - Then provide 2–4 concise bullet points with useful details:\n       • key time windows (from window_or_limits if applicable)\n       • material/care/warranty details if product-related\n       • contact info (from Operations_Contact) if user asks for support\n   - If no confident match is found, respond with:\n       “I couldn’t find that information in our FAQs. Would you like me to connect you to our support team?”\n     Then include the default contact details from the Operations_Contact sheet (topic=\"General\" if present).\n\n4. Ranking and selection:\n   - Prioritize the row whose question_canonical or product_name is most semantically similar to the query.\n   - If multiple rows are equally relevant, choose one and mention “Related FAQs” listing the other question_canonical or product_name values.\n\n5. Safety and integrity:\n   - Never generate or assume new data beyond the sheet content.\n   - Always prefer data freshness and clarity over verbosity.\n   - Use Indian context where timelines or prices may differ.\n\n--------------------------------------------------\nRESPONSE FORMAT EXAMPLE\n\n<short final answer from policy_answer or equivalent field>\n\nDetails:\n• <window_or_limits or care/warranty_note>\n• <additional bullet points if applicable>\n\nIf relevant:\n• Contact: <contact_email> / <whatsapp_number> (<phone_hours>)\n• Related FAQs: <comma-separated question_canonical values>\n\n--------------------------------------------------\nSTYLE\n- Tone: Friendly, concise, trustworthy.\n- Format: Use short paragraphs or bullets. No emojis or unnecessary text.\n- Objective: Solve the customer’s query quickly and accurately, based solely on the data provided.\n\nTone: Professi0onal, friendly, and factual, no emojis or filler texts\n-Objective: Solve the Customer's query quickly and accurately on the data provided \n\n\nYou are an expert USA e-commerce customer service AI Agent for [Store Name].\nYou are professional, warm, accurate, and efficient — the kind of support\nexperience that turns a frustrated customer into a loyal one.",
+          "batching": {}
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        -880,
+        -416
+      ],
+      "id": "c2584610-dbc6-45eb-a5d9-6583f05cd495",
+      "name": "Smart  Customer Service AI Agent"
+    },
+    {
+      "parameters": {
+        "operation": "update"
+      },
+      "type": "n8n-nodes-base.supabaseTool",
+      "typeVersion": 1,
+      "position": [
+        -288,
+        -64
+      ],
+      "id": "50000719-f20c-4041-8fdc-9379b4e8d223",
+      "name": "RAG Database - Supabase1",
+      "credentials": {
+        "supabaseApi": {
+          "id": "OOnkhzzzQgVuQ3er",
+          "name": "Supabase account 37"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "path": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Object_Path', ``, 'string') }}"
+      },
+      "type": "n8n-nodes-base.googleFirebaseRealtimeDatabaseTool",
+      "typeVersion": 1,
+      "position": [
+        128,
+        -64
+      ],
+      "id": "052c4491-86d1-45ba-bcc6-f7d049a95ef9",
+      "name": "Google Cloud Realtime Database",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('To', ``, 'string') }}",
+        "subject": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Subject', ``, 'string') }}",
+        "message": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Message', ``, 'string') }}",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.gmailTool",
+      "typeVersion": 2.2,
+      "position": [
+        -64,
+        -64
+      ],
+      "id": "6741d000-76cf-4d6a-9594-a47b3eb9b4d9",
+      "name": "Send a message in Gmail",
+      "webhookId": "10caafe4-e6f1-4177-b0c3-548ba714a536",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "4Hqoisf1N0AyR32h",
+          "name": "CP AI Gmail"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "model": "llama-3.3-70b-versatile",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        -1376,
+        -48
+      ],
+      "id": "c572ec86-61a5-415d-842b-ecee59079e04",
+      "name": "Groq Chat Model1",
+      "credentials": {
+        "groqApi": {
+          "id": "aiLOGYlrM3KfOdGu",
+          "name": "Groq account 33"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "chinnam.aws@gmail.com",
+        "subject": "Telegram Error message",
+        "message": "Telegram Error message",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        -256,
+        -416
+      ],
+      "id": "fea00f96-c655-4160-9105-312b181190af",
+      "name": "Send a message1",
+      "webhookId": "d5b54ce3-b5a9-4ef8-8657-9d1f8fc43592",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "4Hqoisf1N0AyR32h",
+          "name": "CP AI Gmail"
+        }
+      },
+      "disabled": true
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Customer input message ": {
+      "main": [
+        [
+          {
+            "node": "Smart  Customer Service AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "Smart  Customer Service AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Policy Terms": {
+      "ai_tool": [
+        [
+          {
+            "node": "Smart  Customer Service AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Product Knowledge": {
+      "ai_tool": [
+        [
+          {
+            "node": "Smart  Customer Service AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OPration Contact": {
+      "ai_tool": [
+        [
+          {
+            "node": "Smart  Customer Service AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "RAG Database - Supabase": {
+      "ai_tool": [
+        [
+          {
+            "node": "Smart  Customer Service AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Smart  Customer Service AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Response ",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "RAG Database - Supabase1": {
+      "ai_tool": [
+        [
+          {
+            "node": "Smart  Customer Service AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Cloud Realtime Database": {
+      "ai_tool": [
+        [
+          {
+            "node": "Smart  Customer Service AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a message in Gmail": {
+      "ai_tool": [
+        [
+          {
+            "node": "Smart  Customer Service AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Groq Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Smart  Customer Service AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Response ": {
+      "main": [
+        [
+          {
+            "node": "Send a message1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "aed44b12-f7fb-4c1e-a37f-5019a20e1477",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "966c9717c649ff58138114ad4ec0792ba6c6dbbaefbc75a95d7e5ed34f041958"
+  },
+  "id": "73cG1zIOdU84Ov9D",
+  "tags": []
+}
